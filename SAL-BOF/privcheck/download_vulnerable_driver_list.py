@@ -12,7 +12,9 @@ CSV_FILE = OUTPUT_PATH + "/drivers.csv"
 HASH_OUTPUT_FILE = "./privcheck/vulndrivers.h"
 '''
 
-CSV_FILE = "/tmp/drivers.csv"
+import os
+import tempfile
+CSV_FILE = os.path.join(tempfile.gettempdir(), "drivers.csv")
 HASH_OUTPUT_FILE = "vulndrivers.h"
 
 # Download CSV with all vulnerable hashes
@@ -31,7 +33,7 @@ except Exception as e:
 # Extract relevant hashes
 hashes = set()
 
-with open(CSV_FILE, 'r') as file:
+with open(CSV_FILE, 'r', encoding='utf-8', errors='replace') as file:
     reader = csv.DictReader(file)
     for row in reader:
         # Check if 'Category' matches
